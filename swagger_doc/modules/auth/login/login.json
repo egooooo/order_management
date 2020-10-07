@@ -1,0 +1,40 @@
+{
+  "post": {
+    "tags": [
+      "Auth"
+    ],
+    "summary": "Authentications process.",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "schema/request.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Successfully authenticated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/response.json"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request"
+      },
+      "403": {
+        "description": "Authentication failed"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    },
+    "security": []
+  }
+}

@@ -1,0 +1,13 @@
+# Configs
+# order_management_api/config/local.py
+order_management_api/config/dev.py
+order_management_api/config/prod.py
+
+static/
+logs/
+
+__pycache__/
+.idea
+.pyc
+# for macos DS_Store
+.DS_Store

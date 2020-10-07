@@ -1,0 +1,55 @@
+{
+  "post": {
+    "tags": [
+      "Registration"
+    ],
+    "summary": "Registration user",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "schema/post_request.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "User successfully created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/post_response.json",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "result": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}

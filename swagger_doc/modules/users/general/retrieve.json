@@ -1,0 +1,41 @@
+{
+  "get": {
+    "tags": [
+      "Users"
+    ],
+    "summary": "Return cashier",
+    "parameters": [
+      {
+        "name": "user_id",
+        "in": "path",
+        "required": true,
+        "description": "User ID",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/retrieve_response.json"
+            }
+          }
+        }
+      },
+      "204": {
+        "description": "User not found"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}

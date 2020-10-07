@@ -1,0 +1,1368 @@
+openapi: 3.0.0
+info:
+  title: Control panel API
+  description: >-
+    This is a backoffice control panel API. For this sample, you can use the JWT
+    authorization to test the API filters.
+  version: 0.1.0
+servers:
+  - url: 'http://127.0.0.1:4660'
+    description: Localhost server
+  - url: 'http://136.243.175.83:4660'
+    description: Development test server
+security:
+  - bearerAuth: []
+tags:
+  - name: Login
+    description: Check user's login / password pair
+  - name: OTPKey
+    description: Get / check OTP key (2FA)
+  - name: Agents
+    description: 'List, create or update agents'
+  - name: AgentStaff
+    description: Update information about agent's staff
+  - name: AgentService
+    description: Enable / disable agent's services
+  - name: AgentFinance
+    description: Add / update agent's financial information
+  - name: AgentBalanceHistory
+    description: Agent balance history list & add
+  - name: AgentBalanceHistoryType
+    description: List of agent balance history types (for autocomplete)
+  - name: Transactions
+    description: List of transactions
+  - name: Users
+    description: List of user profiles
+  - name: Points
+    description: List of points. Create & update point
+  - name: PointLimit
+    description: List of limits. Create & update limits
+  - name: AcquirerServicesPoints
+    description: AcquirerServicesPoints
+  - name: Services
+    description: List of services
+    
+paths:
+  '/points/{point_id}/acquirer_services_points/':
+    post:
+      tags:
+        - AcquirerServicesPoints
+      summary: Create or update point limit obj
+      parameters:
+        - name: point_id
+          in: path
+          required: true
+          description: Point ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        description: commission fild must be float
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcquirerServicesPointsRequest'
+      responses:
+        '200':
+          description: Successfull save financial info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    get:
+      tags:
+        - AcquirerServicesPoints
+      summary: Returns point limits by point_id
+      parameters:
+        - name: point_id
+          in: path
+          required: true
+          description: Point ID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcquirerServicesPointsResponse'
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/points/{point_id}/limits/':
+    post:
+      tags:
+        - PointLimit
+      summary: Create or update point limit obj
+      parameters:
+        - name: point_id
+          in: path
+          required: true
+          description: Point ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PointLimitRequest'
+      responses:
+        '200':
+          description: Successfull save financial info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    get:
+      tags:
+        - PointLimit
+      summary: Returns point limit by point_id
+      parameters:
+        - name: point_id
+          in: path
+          required: true
+          description: Point ID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PointLimitResponse'
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/points/{point_id}/':
+    put:
+      tags:
+        - Points
+      summary: Update agent information
+      parameters:
+        - name: point_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PointsPUTRequest'
+      responses:
+        '200':
+          description: Agent successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/points/':
+    get:
+        tags:
+          - Points
+        summary: Returns list of points
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PointsResponse'
+          '401':
+            description: Unathorized
+          '500':
+            description: Fatal server error
+    post:
+      tags:
+        - Points
+      summary: Create point obj
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PointsRequest'
+      responses:
+        '200':
+          description: Successfull save financial info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/agents/{agent_id}/finance/':
+    post:
+      tags:
+        - AgentFinance
+      summary: Add some finance information
+      description: >-
+        Fields **debts_percentage** and **cash_service** must be float   
+
+        Fields **max_payment_amount**, **max_debts_value**, **free_debts**, 
+        **reserved_balance** require money format filter
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinanceRequest'
+      responses:
+        '200':
+          description: Successfull save financial info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    get:
+      tags:
+        - AgentFinance
+      summary: Returns agents financial info
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinanceResponse'
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/agents/{agent_id}/service/':
+    post:
+      tags:
+        - AgentService
+      summary: Enable / disable agent's services
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentServiceRequest'
+      responses:
+        '200':
+          description: Successfull operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    get:
+      tags:
+        - AgentService
+      summary: Returns agent services list
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentServiceResponse'
+        '204':
+          description: No services found
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/agents/{agent_id}/staff/':
+    post:
+      tags:
+        - AgentStaff
+      summary: Update agent staff
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentStaffRequest'
+      responses:
+        '200':
+          description: Stuff successfull updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    get:
+      tags:
+        - AgentStaff
+      summary: Returns agent's staff list
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentStaffResponse'
+        '204':
+          description: Stuff not found
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/agents/{agent_id}/':
+    put:
+      tags:
+        - Agents
+      summary: Update agent information
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentRequest'
+      responses:
+        '200':
+          description: Agent successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/agents/':
+    post:
+      tags:
+        - Agents
+      summary: Create agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentRequest'
+      responses:
+        '200':
+          description: Agent successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    get:
+      tags:
+        - Agents
+      summary: Returns agents list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentResponse'
+        '204':
+          description: Agents not found
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/auth/login':
+    post:
+      tags:
+        - Login
+      summary: First step of authentications process. Check email & password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Successfully authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Bad request
+        '403':
+          description: Authentication failed
+        '500':
+          description: Fatal server error
+      security: []
+  '/auth/otp/{user_id}':
+    post:
+      tags:
+        - OTPKey
+      summary: Check user OTP key (2FA Google Authenticator)
+      description: Use Google Authenticator mobile app to get time-based OTP key
+      parameters:
+        - name: user_id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTPKeyRequest'
+      responses:
+        '200':
+          description: Successful second step auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPKeyResponse'
+        '403':
+          description: Invalid auth code
+        '500':
+          description: Server Error
+      security: []
+  '/agents/balance_history_type/search/':
+    get:
+      tags:
+        - AgentBalanceHistoryType
+      summary: Returns list of agent balance history types
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: Search query (ID or part of name)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A JSON array of history record types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentBalanceHistoryTypeResponse'
+        '204':
+          description: Types is empty
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/agents/{agent_id}/balance_history/':
+    post:
+      tags:
+        - AgentBalanceHistory
+      summary: Change agent balance and save record to history
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentBalanceHistoryAddRequest'
+      responses:
+        '200':
+          description: Successfull added history record
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    get:
+      tags:
+        - AgentBalanceHistory
+      summary: Returns agent balance history list
+      description: ''
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          description: Agent ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Agent balance history list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentBalanceHistoryListResponse'
+        '204':
+          description: History is empty
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/transactions/':
+    get:
+      tags:
+        - Transactions
+      summary: Returns transactions list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsResponse'
+        '204':
+          description: Transactions not found
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/users/search':
+    get:
+      tags:
+        - Users
+      summary: Returns list of user profiles with only id and name (for autocomplete)
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: Search query (ID or part of name / email)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersSearch'
+        '204':
+          description: Transactions not found
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+  '/services/':
+    $ref: 'modules/services/services.yaml'
+          
+  '/services/{service_id}/':
+    put:
+      tags:
+        - Services
+      summary: Update service basic info
+      parameters:
+        - name: service_id
+          in: path
+          required: true
+          description: Service ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ServiceAdd'
+      responses:
+        '200':
+          description: Service successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+                  result:
+                    type: boolean
+        '400':
+          description: Bad request
+        '401':
+          description: Unathorized
+        '500':
+          description: Fatal server error
+    
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AuthRequest:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+    AuthResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: object
+          properties:
+            user_id:
+              type: integer
+    OTPKeyRequest:
+      type: object
+      properties:
+        otp_key:
+          type: string
+    OTPKeyResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+            user_id:
+              type: integer
+            name:
+              type: string
+            email:
+              type: string
+            avatar:
+              type: string
+            modules:
+              type: array
+              items:
+                type: string
+            role:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+            access_token:
+              type: string
+            params:
+              type: object
+    AgentRequest:
+      type: object
+      properties:
+        legal_name:
+          type: string
+        legal_address:
+          type: string
+        work_schema:
+          type: integer
+        director_name:
+          type: string
+        director_phone:
+          type: integer
+        register_payments:
+          type: boolean
+    AgentResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+            legal_name:
+              type: string
+            legal_address:
+              type: string
+            work_schema:
+              type: integer
+            director_name:
+              type: string
+            director_phone:
+              type: integer
+            register_payments:
+              type: boolean
+    AgentStaffRequest:
+      type: object
+      properties:
+        userprofile:
+          type: array
+          items:
+            type: integer
+    AgentStaffResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+            userprofile:
+              type: array
+              items:
+                type: integer
+    AgentServiceRequest:
+      type: object
+      properties:
+        service_id:
+          type: integer
+        is_allowed:
+          type: boolean
+        is_required:
+          type: boolean
+        is_active:
+          type: boolean
+    AgentServiceResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+            is_allowed:
+              type: boolean
+            is_required:
+              type: boolean
+            is_active:
+              type: boolean
+    FinanceRequest:
+      type: object
+      properties:
+        max_payment_amount:
+          type: integer
+        max_debts_value:
+          type: integer
+        debts_end_date:
+          type: string
+        free_debts:
+          type: integer
+        debts_percentage:
+          type: number
+        reserved_balance:
+          type: integer
+        cash_service:
+          type: number
+    PointsRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        agent:
+          type: integer
+        type:
+          type: integer
+        front:
+          type: integer
+        commission_template:
+          type: integer
+        commission_type:
+          type: integer
+        website_payments:
+          type: boolean
+        blocked:
+          type: boolean
+        allow_api_acquiring:
+          type: boolean
+        allow_reverse:
+          type: boolean
+        threeDs_required:
+          type: boolean
+        receive_payed_transactions:
+          type: boolean
+    PointsPUTRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        agent:
+          type: integer
+        type:
+          type: integer
+        front:
+          type: integer
+        commission_template:
+          type: integer
+        commission_type:
+          type: integer
+        website_payments:
+          type: boolean
+        blocked:
+          type: boolean
+        allow_api_acquiring:
+          type: boolean
+        allow_reverse:
+          type: boolean
+        threeDs_required:
+          type: boolean
+        receive_payed_transactions:
+          type: boolean
+    PointLimitRequest:
+      type: object
+      properties:
+        amount_limit_activity:
+          type: boolean
+        amount_limit_from:
+          type: string
+        amount_limit_to:
+          type: string
+        amount_limit:
+          type: integer
+        current_day_amount_limit:
+          type: integer
+    AcquirerServicesPointsRequest:
+      type: object
+      properties:
+        acquirer_service_id:
+          type: integer
+        merchant_id:
+          type: string
+        commission:
+          type: integer
+        acquirer_point_id:
+          type: string
+        params:
+          type: object
+          properties:
+            code:
+              type: integer
+            text:
+              type: string
+    FinanceResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+            max_payment_amount:
+              type: integer
+            max_debts_value:
+              type: integer
+            debts_end_date:
+              type: string
+            free_debts:
+              type: integer
+            debts_percentage:
+              type: string
+            reserved_balance:
+              type: integer
+            cash_service:
+              type: integer
+    AgentBalanceHistoryAddRequest:
+      type: object
+      properties:
+        type:
+          type: integer
+        amount:
+          type: integer
+    AgentBalanceHistoryListResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: object
+          properties:
+            count:
+              type: integer
+            next:
+              type: integer
+            previous:
+              type: integer
+            results:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  by_user:
+                    type: string
+                  type:
+                    type: string
+                  agent:
+                    type: string
+                  amount:
+                    type: integer
+                  created:
+                    type: string
+    AgentBalanceHistoryTypeResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+    PointsResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+    TransactionsResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              external_id:
+                type: string
+              created:
+                type: string
+              status:
+                type: integer
+              processing_status:
+                type: integer
+              amount:
+                type: integer
+              customer_amount:
+                type: integer
+              external_commission:
+                type: integer
+              internal_commission:
+                type: integer
+              acquirer_commission:
+                type: integer
+              agent_id:
+                type: integer
+              point_id:
+                type: integer
+              service_id:
+                type: integer
+              point:
+                type: integer
+              agent:
+                type: integer
+              service:
+                type: integer
+              transaction_fields:
+                type: array
+                items:
+                  type: string
+              provider:
+                type: string
+              provider_department_props:
+                type: string
+              payment_registrator:
+                type: string
+              acquirer_service:
+                type: string
+              point_address:
+                type: string
+    UsersSearch:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+    PointLimitResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              amount_limit_activity:
+                type: boolean
+              amount_limit_from:
+                type: string
+              amount_limit_to:
+                type: integer
+              current_day_amount_limit:
+                type: integer
+    AcquirerServicesPointsResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: array
+          items:
+            type: object
+    ServicesResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              logo:
+                type: string
+              provider:
+                type: string
+              min_payment_amount:
+                type: integer
+              max_payment_amount:
+                type: integer
+              is_active:
+                type: boolean
+              group:
+                type: array
+                items:
+                  type: string
+    ServiceAdd:
+      type: object
+      properties:
+        name_bo:
+          type: string
+        logo_large:
+          type: string
+          format: binary
+        min_payment_amount:
+          type: integer
+        max_payment_amount:
+          type: integer
+        description:
+          type: string
+        is_active:
+          type: boolean
+        show_on_frontviews:
+          type: boolean
+        group:
+          type: array
+          items:
+            type: integer
+    
+    
+    
+    
+    
+    
+    
+    

@@ -1,0 +1,58 @@
+{
+  "get": {
+    "tags": [
+      "Users"
+    ],
+    "summary": "Returns cashier list",
+    "parameters": [
+      {
+        "name": "first_name",
+        "in": "query",
+        "required": false,
+        "description": "User first name",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "last_name",
+        "in": "query",
+        "required": false,
+        "description": "User last name",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "email",
+        "in": "query",
+        "required": false,
+        "description": "User email",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/get_response.json"
+            }
+          }
+        }
+      },
+      "204": {
+        "description": "User not found"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}
