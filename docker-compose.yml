@@ -13,7 +13,7 @@ services:
   db:
     image: postgres:12.0-alpine
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/
+      - ./pgdata/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=hello_django
       - POSTGRES_PASSWORD=hello_django
