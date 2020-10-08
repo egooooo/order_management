@@ -10,8 +10,6 @@ services:
       - 8999:8000
     env_file:
       - database.env
-    depends_on:
-      - db
   db:
     image: postgres:12.0-alpine
     volumes:
@@ -22,3 +20,8 @@ services:
       - POSTGRES_USER=om_user
       - POSTGRES_PASSWORD=123qwe321
       - POSTGRES_DB=om_db
+  aprrka:
+    restart: always
+    build: .
+    depends_on:
+      - db
