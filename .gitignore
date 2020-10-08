@@ -5,6 +5,7 @@ order_management_api/config/prod.py
 
 static/
 logs/
+pgdata/
 
 __pycache__/
 .idea

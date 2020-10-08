@@ -10,6 +10,11 @@ ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+RUN apk add python3-dev build-base linux-headers pcre-dev
+
+# logs dir & pgdata
+RUN mkdir /usr/src/logs
+RUN mkdir /usr/src/pgdata
 
 # install dependencies
 RUN pip install --upgrade pip
