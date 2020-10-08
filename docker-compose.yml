@@ -1,6 +1,17 @@
 version: '3.7'
 
 services:
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    ports:
+      - 5532:5432
+    environment:
+      - POSTGRES_USER=om_user
+      - POSTGRES_PASSWORD=123qwe321
+      - POSTGRES_DB=om_db
+      
   web:
     build: .
     command: python order_management_api/manage.py runserver 0.0.0.0:8000
@@ -8,20 +19,8 @@ services:
       - .:/usr/src/order_management_api/
     ports:
       - 8999:8000
-    env_file:
-      - database.env
-  db:
-    image: postgres:12.0-alpine
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-    ports:
-      - 5533:5432
-    environment:
-      - POSTGRES_USER=om_user
-      - POSTGRES_PASSWORD=123qwe321
-      - POSTGRES_DB=om_db
-  aprrka:
-    restart: always
-    build: .
     depends_on:
       - db
+
+volumes:
+  pgdata:

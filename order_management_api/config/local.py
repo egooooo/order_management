@@ -14,6 +14,6 @@ DATABASES = {
         'USER': 'om_user',
         'PASSWORD': '123qwe321',
         'HOST': 'db',
-        'PORT': '5533'
+        'PORT': '5532'
     }
 }
