@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    command: python order_management_api/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/order_management_api/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.local
+  db:
+    image: postgres:12.0-alpine
+    volumes:
+      - .:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
+
+volumes:
+  postgres_data:
