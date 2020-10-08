@@ -12,8 +12,11 @@ services:
       - database.env
   db:
     image: postgres:12.0-alpine
+    restart: always
     volumes:
-      - ./pgdata/:/var/lib/postgresql/data/
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
     environment:
       - POSTGRES_USER=om_db
       - POSTGRES_PASSWORD=om_user
