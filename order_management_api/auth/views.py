@@ -26,7 +26,7 @@ class RegistrationView(BaseView):
 
         # create auth_user
         auth_user = User.objects.create_user(
-            username=data.get('password_first'),
+            username=data.get('email'),
             email=data.get('email'),
             password=data.get('password_first')
         )
@@ -66,8 +66,6 @@ class LoginView(BaseExternalView):
             username=data.get('login'),
             password=data.get('password')
         )
-        payload = jwt_payload_handler(up.user)
-        token = jwt.encode(payload, SECRET_KEY)
 
         if auth_user is None:
             # 108 - Incorrect password
@@ -75,6 +73,9 @@ class LoginView(BaseExternalView):
                 api_response(status_code=108),
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+        payload = jwt_payload_handler(up.user)
+        token = jwt.encode(payload, SECRET_KEY)
 
         result['id'] = up.id
         result['name'] = f"{up.first_name} {up.last_name}"
