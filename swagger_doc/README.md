@@ -1,2 +1,0 @@
-# Smartfin - Cashoffice swagger
-
