@@ -2,4 +2,8 @@
 
 git clone ... \
 docker-compose up -d --build \
-docker-compose up 
+docker-compose up \
+
+# SWAGGER
+
+http://localhost:8323/

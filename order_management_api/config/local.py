@@ -13,7 +13,7 @@ DATABASES = {
         'NAME': 'om_db',
         'USER': 'om_user',
         'PASSWORD': '123qwe321',
-        'HOST': 'db',
+        'HOST': 'postgresql',
         'PORT': '5454'
     }
 }

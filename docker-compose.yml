@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  db:
+  postgresql:
     image: postgres:12.0-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data/
@@ -23,7 +23,7 @@ services:
     ports:
       - 8923:8000
     depends_on:
-      - db
+      - postgresql
 
   migtation:
     build: .
