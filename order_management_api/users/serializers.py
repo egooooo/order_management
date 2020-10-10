@@ -6,7 +6,7 @@ from users.models import UserProfile
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['id', 'created', 'name', 'email']
+        fields = ['id', 'created', 'name', 'email', 'role']
 
     name = serializers.SerializerMethodField(source='get_name')
 
@@ -17,4 +17,4 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class UserProfileRetSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['id', 'created', 'first_name', 'last_name', 'email']
+        fields = ['id', 'created', 'first_name', 'last_name', 'email', 'role']

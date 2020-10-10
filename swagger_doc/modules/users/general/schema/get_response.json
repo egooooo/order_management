@@ -26,6 +26,9 @@
         },
         "email": {
           "type": "string"
+        },
+        "role": {
+          "type": "integer"
         }
       }
     }

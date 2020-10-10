@@ -1,8 +1,5 @@
-import datetime
 import logging
 import traceback
-
-from django.utils import timezone
 
 from config.base import LANGUAGE_CODE
 from .errors import get_error
@@ -39,9 +36,3 @@ def api_response(data=None, status_code=0, lang=None, message=None):
         response['error']['message'] += " (" + message + ")"
 
     return response
-
-
-def parse_datetime(dt, format):
-    current_tz = timezone.utc
-    ded = datetime.datetime.strptime(dt, format)
-    return current_tz.localize(ded)

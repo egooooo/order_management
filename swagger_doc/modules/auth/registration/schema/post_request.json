@@ -10,6 +10,9 @@
     "email": {
       "type": "string"
     },
+    "role": {
+      "type": "integer"
+    },
     "password_first": {
       "type": "string"
     },

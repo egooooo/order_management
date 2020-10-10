@@ -15,13 +15,13 @@ services:
       - POSTGRES_DB=om_db
     command: -p 5454
 
-  web:
+  api:
     build: .
     command: python order_management_api/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/usr/src/order_management_api/
     ports:
-      - 8999:8000
+      - 8923:8000
     depends_on:
       - db
 
@@ -29,14 +29,14 @@ services:
     build: .
     command: python order_management_api/manage.py migrate
     depends_on:
-      - web
+      - api
 
   swagger:
     image: nginx:1.17.4-alpine
     volumes:
       - ./swagger_doc:/usr/share/nginx/html
     ports:
-      - "8081:80"
+      - "8323:80"
 
 volumes:
   pgdata:

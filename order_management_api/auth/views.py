@@ -80,6 +80,7 @@ class LoginView(BaseExternalView):
         result['id'] = up.id
         result['name'] = f"{up.first_name} {up.last_name}"
         result['email'] = up.email
+        result['role'] = up.role
         result['access_token'] = token
 
         return Response(api_response(data=result))

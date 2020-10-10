@@ -29,9 +29,9 @@ class UserProfileViewSet(BaseReadOnlyViewSet):
                 id=self.kwargs.get('user_id')
             )
         except:
-            # 152 - User not found
+            # 150 - User not found
             return Response(
-                api_response(status_code=152),
+                api_response(status_code=150),
                 status=status.HTTP_400_BAD_REQUEST
             )
 
