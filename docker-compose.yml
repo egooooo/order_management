@@ -10,9 +10,9 @@ services:
     ports:
       - 5454:5454/tcp
     environment:
-      - POSTGRES_USER=om_user
+      - POSTGRES_USER=order_user
       - POSTGRES_PASSWORD=123qwe321
-      - POSTGRES_DB=om_db
+      - POSTGRES_DB=order_db
     command: -p 5454
 
   api:
@@ -23,13 +23,14 @@ services:
     ports:
       - 8923:8000
     depends_on:
+      - migtation
       - postgresql
 
   migtation:
     build: .
     command: python order_management_api/manage.py migrate
     depends_on:
-      - api
+      - postgresql
 
   swagger:
     image: nginx:1.17.4-alpine

@@ -10,8 +10,8 @@ ENV = 'LOCAL'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'om_db',
-        'USER': 'om_user',
+        'NAME': 'order_db',
+        'USER': 'order_user',
         'PASSWORD': '123qwe321',
         'HOST': 'postgresql',
         'PORT': '5454'
