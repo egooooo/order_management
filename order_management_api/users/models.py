@@ -30,6 +30,11 @@ class UserProfile(AbstractCreateUpdateModel):
         User, unique=True, null=True, on_delete=models.SET_NULL
     )
 
+    def is_shop_assistant(self):
+        if self.role.slug == UserRole.SHOP_ASSISTANT_SLUG:
+            return True
+        return False
+
     def is_cashier(self):
         if self.role.slug == UserRole.CASHIER_SLUG:
             return True

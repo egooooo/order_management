@@ -11,5 +11,8 @@ urlpatterns = [
     }), name='users'),
     path('<int:user_id>/', views.UserProfileViewSet.as_view({
         'get': 'retrieve',
-    }), name='user')
+    }), name='user'),
+    path('roles/', views.UserRoleViewSet.as_view({
+        'get': 'list'
+    }), name='roles'),
 ]

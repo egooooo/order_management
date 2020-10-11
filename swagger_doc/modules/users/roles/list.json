@@ -1,0 +1,58 @@
+{
+  "get": {
+    "tags": [
+      "Role"
+    ],
+    "summary": "Returns role list",
+    "parameters": [
+      {
+        "name": "name",
+        "in": "query",
+        "required": false,
+        "description": "Role name",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "slug",
+        "in": "query",
+        "required": false,
+        "description": "Role slug",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "is_admin",
+        "in": "query",
+        "required": false,
+        "description": "Role is_admin",
+        "schema": {
+          "type": "boolean"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/get_response.json"
+            }
+          }
+        }
+      },
+      "204": {
+        "description": "Role not found"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@
     "email": {
       "type": "string"
     },
-    "role": {
+    "role_id": {
       "type": "integer"
     },
     "password_first": {

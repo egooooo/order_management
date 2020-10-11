@@ -123,6 +123,58 @@ api_errors = [
         }
     },
 
+    # Role 200-219
+    {
+        'code': 200,
+        'message': {
+            'ru': 'Роль не найдена',
+            'en': 'Role not found',
+            'uk': 'Посада не знайдена'
+        }
+    },
+    {
+        'code': 201,
+        'message': {
+            'ru': 'Доступно только для роли администратор',
+            'en': 'Only available for the administrator role',
+            'uk': 'Доступно тільки для ролі адміністратор'
+        }
+    },
+
+    # Product, Order 220-249
+    {
+        'code': 220,
+        'message': {
+            'ru': 'Товар не найден',
+            'en': 'Product not found',
+            'uk': 'Товар не знайдено'
+        }
+    },
+    {
+        'code': 221,
+        'message': {
+            'ru': 'Только кассир может создать заказ.',
+            'en': 'Only the cashier can create an order.',
+            'uk': 'Тільки касир може створити замовлення.'
+        }
+    },
+    {
+        'code': 222,
+        'message': {
+            'ru': 'Закащ не найден',
+            'en': 'Order not found',
+            'uk': 'Замовлення не знайдено'
+        }
+    },
+    {
+        'code': 223,
+        'message': {
+            'ru': 'Только продавец-консультант может обновить заказ.',
+            'en': 'Only the shop assistant can update an order.',
+            'uk': 'Тільки продавець-консультант може оновити замовлення.'
+        }
+    },
+
     # System error
     {
         'code': 999,

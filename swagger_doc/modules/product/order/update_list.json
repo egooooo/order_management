@@ -1,0 +1,106 @@
+{
+  "get": {
+    "tags": [
+      "Order"
+    ],
+    "summary": "Return Order",
+    "parameters": [
+      {
+        "name": "order_id",
+        "in": "path",
+        "required": true,
+        "description": "Order - ID",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/retrieve_response.json"
+            }
+          }
+        }
+      },
+      "204": {
+        "description": "Not found"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  },
+  "put": {
+    "tags": [
+      "Order"
+    ],
+    "summary": "Update",
+    "parameters": [
+      {
+        "name": "order_id",
+        "in": "path",
+        "required": true,
+        "description": "Order - ID",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "schema/put_request.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Successfully updated",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/put_response.json",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "result": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}

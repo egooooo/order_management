@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('auth.urls', namespace='auth')),
     path('users/', include('users.urls', namespace='user')),
+    path('product/', include('product.urls', namespace='product')),
 ]
 
 handler400 = 'config.views.error_400'

@@ -1,0 +1,93 @@
+{
+  "get": {
+    "tags": [
+      "Product"
+    ],
+    "summary": "Returns list of Product",
+    "parameters": [
+      {
+        "name": "name",
+        "in": "query",
+        "required": false,
+        "description": "Product - name",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/get_response.json"
+            }
+          }
+        }
+      },
+      "204": {
+        "description": "Not found"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "Product"
+    ],
+    "summary": "Create Product",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "schema/post_request.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/post_response.json",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "result": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}

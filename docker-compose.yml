@@ -9,10 +9,8 @@ services:
       - 5454
     ports:
       - 5454:5454/tcp
-    environment:
-      - POSTGRES_USER=order_user
-      - POSTGRES_PASSWORD=123qwe321
-      - POSTGRES_DB=order_db
+    env_file:
+      - .env.local
     command: -p 5454
 
   api:
@@ -22,13 +20,6 @@ services:
       - .:/usr/src/order_management_api/
     ports:
       - 8923:8000
-    depends_on:
-      - migtation
-      - postgresql
-
-  migtation:
-    build: .
-    command: python order_management_api/manage.py migrate
     depends_on:
       - postgresql
 

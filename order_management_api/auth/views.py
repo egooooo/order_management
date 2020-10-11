@@ -8,7 +8,7 @@ from config.settings import SECRET_KEY
 from config.utils import api_response
 from config.views import BaseExternalView, BaseView
 
-from users.models import UserProfile
+from users.models import UserProfile, UserRole
 
 import jwt
 
@@ -16,6 +16,15 @@ import jwt
 class RegistrationView(BaseView):
     def post(self, request):
         data = request.data
+
+        try:
+            user_role = UserRole.objects.get(id=data.get('role_id'))
+        except:
+            # 200 - Role not found
+            return Response(
+                api_response(status_code=200),
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         if data.get('password_first') != data.get('password_second'):
             # 151 - Password does not match
@@ -42,6 +51,7 @@ class RegistrationView(BaseView):
         user.first_name = data.get('first_name')
         user.last_name = data.get('last_name')
         user.email = data.get('email')
+        user.role_id = user_role.id
         user.user_id = auth_user.id
         user.save()
 
@@ -80,7 +90,7 @@ class LoginView(BaseExternalView):
         result['id'] = up.id
         result['name'] = f"{up.first_name} {up.last_name}"
         result['email'] = up.email
-        result['role'] = up.role
+        result['role'] = up.role.slug
         result['access_token'] = token
 
         return Response(api_response(data=result))

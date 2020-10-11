@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.models import UserProfile
+from users.models import UserProfile, UserRole
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -18,3 +18,9 @@ class UserProfileRetSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['id', 'created', 'first_name', 'last_name', 'email', 'role']
+
+
+class UserRoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserRole
+        fields = ['id', 'name', 'slug', 'is_admin']

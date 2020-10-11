@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "created": {
+          "type": "string"
+        },
+        "status_id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "cashier_id": {
+          "type": "integer"
+        },
+        "cashier": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "integer"
+        },
+        "product_name": {
+          "type": "string"
+        },
+        "shop_assistant_id": {
+          "type": "integer"
+        },
+        "shop_assistant": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

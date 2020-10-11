@@ -1,0 +1,102 @@
+{
+  "get": {
+    "tags": [
+      "Order"
+    ],
+    "summary": "Returns list of Order",
+    "parameters": [
+      {
+        "name": "created_after",
+        "in": "query",
+        "required": false,
+        "description": "Created after",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "created_before",
+        "in": "query",
+        "required": false,
+        "description": "Created before",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/get_response.json"
+            }
+          }
+        }
+      },
+      "204": {
+        "description": "Not found"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  },
+  "post": {
+    "tags": [
+      "Order"
+    ],
+    "summary": "Create Order",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "schema/post_request.json"
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/post_response.json",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "result": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request"
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}

@@ -19,15 +19,27 @@
   "tags": [
     {
       "name": "Auth",
-      "description": "Returns access token and cashier info"
+      "description": "Returns access token and user info"
     },
     {
       "name": "Registration",
       "description": "Registration users"
     },
     {
+      "name": "Role",
+      "description": "User roles"
+    },
+    {
       "name": "Users",
       "description": "Users"
+    },
+    {
+      "name": "Product",
+      "description": "Product - CRUD. (Checking for product availability. Product creation and editing. Removing a product.)"
+    },
+    {
+      "name": "Order",
+      "description": "Order - CRUD."
     }
   ],
   "paths": {
@@ -42,6 +54,24 @@
     },
     "/users/{user_id}/": {
       "$ref": "modules/users/general/retrieve.json"
+    },
+    "/users/roles/": {
+      "$ref": "modules/users/roles/list.json"
+    },
+    "/product/": {
+      "$ref": "modules/product/general/create_list.json"
+    },
+    "/product/{product_id}/": {
+      "$ref": "modules/product/general/update_list.json"
+    },
+    "/product/{product_id}/delete/": {
+      "$ref": "modules/product/general/delete.json"
+    },
+    "/product/order/": {
+      "$ref": "modules/product/order/create_list.json"
+    },
+    "/product/order/{order_id}/": {
+      "$ref": "modules/product/order/update_list.json"
     }
   },
   "components": {

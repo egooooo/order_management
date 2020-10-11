@@ -1,0 +1,38 @@
+{
+  "delete": {
+    "tags": [
+      "Product"
+    ],
+    "summary": "Delete Product",
+    "parameters": [
+      {
+        "name": "product_id",
+        "in": "path",
+        "required": true,
+        "description": "Product - ID",
+        "schema": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schema/delete_response.json"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unathorized"
+      },
+      "500": {
+        "description": "Fatal server error"
+      }
+    }
+  }
+}
