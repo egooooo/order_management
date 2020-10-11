@@ -162,6 +162,9 @@ class OrderViewSet(BaseReadOnlyViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        active_user = self.request.user
+        up = UserProfile.objects.get(user_id=active_user.id)
+
         order.status = request.data.get('status')
         order.shop_assistant_id = up.id
         order.save()
