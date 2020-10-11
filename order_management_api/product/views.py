@@ -162,16 +162,6 @@ class OrderViewSet(BaseReadOnlyViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        active_user = self.request.user
-        up = UserProfile.objects.get(user_id=active_user.id)
-
-        if up.is_shop_assistant() is not True:
-            # 223 - Only the shop assistant can update an order.
-            return Response(
-                api_response(status_code=223),
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
         order.status = request.data.get('status')
         order.shop_assistant_id = up.id
         order.save()
