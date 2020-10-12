@@ -1,7 +1,7 @@
 # ORDER MANAGEMENT
 It is a system for managing orders in a hardware store.
 
-## Installation for mac
+## Installation for mac os
 Clone the project to a convenient directory
 ```bash
 git clone https://github.com/egooooo/order_management.git
