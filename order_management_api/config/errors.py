@@ -182,6 +182,32 @@ api_errors = [
             'uk': 'Тільки продавець-консультант може оновити замовлення.'
         }
     },
+    {
+        'code': 224,
+        'message': {
+            'ru': 'Заказ проверку не прошел. Статус - отменен.',
+            'en': 'The order was not verified. Status - canceled.',
+            'uk': 'Замовлення перевірку не пройшло. Статус - скасований.'
+        }
+    },
+    {
+        'code': 225,
+        'message': {
+            'ru': 'Сумма оплаты меньше чем стоимость товара',
+            'en': 'Amount to be paid is less than the sum of the product',
+            'uk': 'Сума до соплати менше ніж сума товару'
+        }
+    },
+
+    # Payment 250-299
+    {
+        'code': 250,
+        'message': {
+            'ru': 'Только бухгалтер может видеть транзакции',
+            'en': 'Only an accountant can see transactions',
+            'uk': 'Тільки бухгалтер може бачити транзакції'
+        }
+    },
 
     # System error
     {

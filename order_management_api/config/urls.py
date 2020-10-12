@@ -11,6 +11,7 @@ urlpatterns = [
     path('auth/', include('auth.urls', namespace='auth')),
     path('users/', include('users.urls', namespace='user')),
     path('product/', include('product.urls', namespace='product')),
+    path('payment/', include('payment.urls', namespace='payment')),
 ]
 
 handler400 = 'config.views.error_400'

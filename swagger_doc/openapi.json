@@ -40,6 +40,10 @@
     {
       "name": "Order",
       "description": "Order - CRUD."
+    },
+    {
+      "name": "Payments",
+      "description": "The accountant can see"
     }
   ],
   "paths": {
@@ -72,6 +76,9 @@
     },
     "/product/order/{order_id}/": {
       "$ref": "modules/product/order/update_list.json"
+    },
+    "/payment/": {
+      "$ref": "modules/payment/general/list.json"
     }
   },
   "components": {

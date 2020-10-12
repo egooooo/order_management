@@ -21,7 +21,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ['id', 'created', 'status_id', 'status', 'cashier_id',
                   'cashier', 'product_id', 'product_name',
                   'shop_assistant_id', 'shop_assistant', 'price', 'discount',
-                  'final_cost']
+                  'final_sum']
 
     product_name = serializers.SerializerMethodField(source='get_product_name')
     cashier = serializers.SerializerMethodField(source='get_cashier')
@@ -32,7 +32,7 @@ class OrderSerializer(serializers.ModelSerializer):
     status_id = serializers.SerializerMethodField(source='get_status_id')
     price = serializers.SerializerMethodField(source='get_price')
     discount = serializers.SerializerMethodField(source='get_discount')
-    final_cost = serializers.SerializerMethodField(source='get_final_cost')
+    final_sum = serializers.SerializerMethodField(source='get_final_sum')
 
     def get_product_name(self, obj):
         if obj.product:
@@ -62,7 +62,7 @@ class OrderSerializer(serializers.ModelSerializer):
     def get_discount(self, obj):
         return Product.objects.get(id=obj.product_id).discount
 
-    def get_final_cost(self, obj):
+    def get_final_sum(self, obj):
         price = Product.objects.get(id=obj.product_id).price
         discount = Product.objects.get(id=obj.product_id).discount
         return price - discount
@@ -72,11 +72,11 @@ class OrderRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'created', 'status', 'cashier_id', 'product_id',
-                  'shop_assistant_id', 'price', 'discount', 'final_cost']
+                  'shop_assistant_id', 'price', 'discount', 'final_sum']
 
     price = serializers.SerializerMethodField(source='get_price')
     discount = serializers.SerializerMethodField(source='get_discount')
-    final_cost = serializers.SerializerMethodField(source='get_final_cost')
+    final_sum = serializers.SerializerMethodField(source='get_final_sum')
 
     def get_price(selfs, obj):
         return Product.objects.get(id=obj.product_id).price
@@ -84,7 +84,7 @@ class OrderRetrieveSerializer(serializers.ModelSerializer):
     def get_discount(self, obj):
         return Product.objects.get(id=obj.product_id).discount
 
-    def get_final_cost(self, obj):
+    def get_final_sum(self, obj):
         price = Product.objects.get(id=obj.product_id).price
         discount = Product.objects.get(id=obj.product_id).discount
         return price - discount

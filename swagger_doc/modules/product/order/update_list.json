@@ -53,18 +53,44 @@
           "type": "integer",
           "format": "int64"
         }
-      }
-    ],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "$ref": "schema/put_request.json"
-          }
+      },
+      {
+        "name": "to_pay",
+        "in": "query",
+        "required": false,
+        "description": "To pay for cashier",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "amount",
+        "in": "query",
+        "required": false,
+        "description": "Amount paid by the client",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      {
+        "name": "is_cash",
+        "in": "query",
+        "required": false,
+        "description": "Cash or card",
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "shop_assistant_check_product",
+        "in": "query",
+        "required": false,
+        "description": "Check product for shop assistant",
+        "schema": {
+          "type": "boolean"
         }
       }
-    },
+    ],
     "responses": {
       "200": {
         "description": "Successfully updated",

@@ -21,7 +21,7 @@
             "first_name": "Cashier",
             "last_name": "Cashier",
             "email": "cashier@cashier.com",
-            "role": 1,
+            "role": 2,
             "user": 2
         }
     },
@@ -34,7 +34,7 @@
             "first_name": "Shop",
             "last_name": "Assistant",
             "email": "shop_assistant@sa.com",
-            "role": 1,
+            "role": 3,
             "user": 3
         }
     },
@@ -47,7 +47,7 @@
             "first_name": "Accountant",
             "last_name": "Accountant",
             "email": "accountant@accountant.com",
-            "role": 1,
+            "role": 4,
             "user": 4
         }
     }

@@ -11,6 +11,7 @@ from product.serializers import ProductSerializer, ProductRetrieveSerializer, \
     OrderSerializer, OrderRetrieveSerializer
 
 from users.models import UserProfile
+from payment.models import Payment
 
 import datetime
 
@@ -182,8 +183,60 @@ class OrderViewSet(BaseReadOnlyViewSet):
         active_user = self.request.user
         up = UserProfile.objects.get(user_id=active_user.id)
 
-        order.status = request.data.get('status')
+        if up.is_cashier():
+            if 'to_pay' in request.GET:
+                if request.GET['to_pay'] == 'true':
+                    result = dict()
+                    change = None
+                    product = Product.objects.get(id=order.product_id)
+                    product_price = product.price - product.discount
+
+                    if int(request.GET['amount']) < product_price:
+                        # 225 - Amount to be paid is less than the
+                        # sum of the product
+                        return Response(
+                            api_response(status_code=225),
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+
+                    if int(request.GET['amount']) >= product_price:
+                        change = int(request.GET['amount']) - product_price
+
+                    pay = Payment()
+                    pay.order_id = order.id
+                    pay.amount = request.GET['amount']
+                    if request.GET['is_cash'] == 'true':
+                        pay.cash = True
+                        pay.change = change
+                    if request.GET['is_cash'] == 'false':
+                        pay.card = True
+                        pay.change = change
+                    pay.status = 1
+                    pay.save()
+
+                    result['product_name'] = product.name
+                    result['cashier_name'] = f'{up.first_name} {up.last_name}'
+                    result['product_price'] = product.price
+                    result['product_discount'] = product.discount
+                    result['to_pay_amount'] = pay.amount
+                    result['pay_change'] = pay.change
+
+                    return Response(api_response(data=result))
+
+
+        if up.is_shop_assistant():
+            if 'shop_assistant_check_product' in request.GET:
+                if request.GET['shop_assistant_check_product'] == 'true':
+                    order.status = 1
+                    order.shop_assistant_id = up.id
+                    order.save()
+                    return Response(api_response(data=True))
+
+        order.status = 3
         order.shop_assistant_id = up.id
         order.save()
-
-        return Response(api_response(data=True))
+        # 224 - The order was not verified. Status - canceled.
+        return Response(
+            api_response(status_code=224),
+            status=status.HTTP_400_BAD_REQUEST
+        )
