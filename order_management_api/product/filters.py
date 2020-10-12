@@ -20,13 +20,11 @@ class ProductFilter(filters.FilterSet):
 class OrderFilter(filters.FilterSet):
     class Meta:
         model = Order
-        fields = ['id', 'created', 'status', 'cashier_id', 'product_id',
-                  'shop_assistant_id']
+        fields = ['id', 'created', 'status']
         order_by = model()._meta.ordering
 
     order = filters.OrderingFilter(
-        fields=['id', 'created', 'status', 'cashier_id', 'product_id',
-                'shop_assistant_id']
+        fields=['id', 'created', 'status']
     )
     # Dates filter (created_before, created_after)
-    created = django_filters.DateTimeFromToRangeFilter()
+    created = django_filters.DateFromToRangeFilter()

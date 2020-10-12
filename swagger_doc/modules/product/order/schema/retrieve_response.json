@@ -33,6 +33,15 @@
         "shop_assistant_id": {
           "type": "integer"
         },
+        "price": {
+          "type": "integer"
+        },
+        "discount": {
+          "type": "integer"
+        },
+        "final_cost": {
+          "type": "integer"
+        }
       }
     }
   }

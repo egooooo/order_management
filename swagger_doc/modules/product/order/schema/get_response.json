@@ -44,6 +44,15 @@
         },
         "shop_assistant": {
           "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "discount": {
+          "type": "integer"
+        },
+        "final_cost": {
+          "type": "integer"
         }
       }
     }

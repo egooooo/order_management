@@ -166,7 +166,7 @@ class OrderViewSet(BaseReadOnlyViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        serializer = ProductRetrieveSerializer(order)
+        serializer = OrderRetrieveSerializer(order)
         return Response(api_response(data=serializer.data))
 
     def put(self, request, order_id):

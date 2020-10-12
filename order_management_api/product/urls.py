@@ -20,9 +20,9 @@ urlpatterns = [
     path('order/', views.OrderViewSet.as_view({
         'get': 'list',
         'post': 'post'
-    }), name='products'),
+    }), name='order_products'),
     path('order/<int:order_id>/', views.OrderViewSet.as_view({
         'get': 'retrieve',
         'put': 'put'
-    }), name='product'),
+    }), name='order_product'),
 ]

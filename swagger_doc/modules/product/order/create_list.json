@@ -9,7 +9,7 @@
         "name": "created_after",
         "in": "query",
         "required": false,
-        "description": "Created after",
+        "description": "Created after (Y-M-D)",
         "schema": {
           "type": "string"
         }
@@ -18,7 +18,7 @@
         "name": "created_before",
         "in": "query",
         "required": false,
-        "description": "Created before",
+        "description": "Created before (Y-M-D)",
         "schema": {
           "type": "string"
         }
