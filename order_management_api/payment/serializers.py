@@ -7,12 +7,12 @@ from product.models import Product, Order
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
-        fields = ['id', 'created', 'status_id', 'status', 'cashier_id',
-                  'cashier', 'product_id', 'product_name',
+        fields = ['id', 'created', 'order_id', 'status_id', 'status',
+                  'cashier_id', 'cashier', 'product_id', 'product_name',
                   'shop_assistant_id', 'shop_assistant', 'product_price',
-                  'product_discount', 'cash', 'card', 'amount', 'change',
-                  'order_id']
+                  'product_discount', 'cash', 'card', 'amount', 'change']
 
+    product_id = serializers.SerializerMethodField(source='get_product_id')
     product_name = serializers.SerializerMethodField(source='get_product_name')
     cashier_id = serializers.SerializerMethodField(source='get_cashier_id')
     cashier = serializers.SerializerMethodField(source='get_cashier')
@@ -30,6 +30,12 @@ class PaymentSerializer(serializers.ModelSerializer):
     product_discount = serializers.SerializerMethodField(
         source='get_product_discount'
     )
+
+    def get_product_id(self, obj):
+        if obj.order:
+            if obj.order.product:
+                return obj.order.product.id
+        return None
 
     def get_product_name(self, obj):
         if obj.order:
@@ -59,8 +65,8 @@ class PaymentSerializer(serializers.ModelSerializer):
     def get_shop_assistant(self, obj):
         if obj.order:
             if obj.order.shop_assistant:
-                return f'{obj.shop_assistant.first_name} ' \
-                       f'{obj.shop_assistant.last_name}'
+                return f'{obj.order.shop_assistant.first_name} ' \
+                       f'{obj.order.shop_assistant.last_name}'
         return None
 
     def get_status(self, obj):
@@ -69,13 +75,13 @@ class PaymentSerializer(serializers.ModelSerializer):
     def get_status_id(self, obj):
         return obj.status
 
-    def get_price(selfs, obj):
+    def get_product_price(selfs, obj):
         if obj.order:
             if obj.order.product:
                 return obj.order.product.price
         return None
 
-    def get_discount(self, obj):
+    def get_product_discount(self, obj):
         if obj.order:
             if obj.order.product:
                 return obj.order.product.discount
