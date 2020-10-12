@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from payment.models import Payment
-from product.models import Product, Order
+from product.models import Order
 
 
 class PaymentSerializer(serializers.ModelSerializer):

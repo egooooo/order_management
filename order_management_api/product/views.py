@@ -203,6 +203,7 @@ class OrderViewSet(BaseReadOnlyViewSet):
                         change = int(request.GET['amount']) - product_price
 
                     pay = Payment()
+                    # TODO invoice_date_created save to db
                     pay.order_id = order.id
                     pay.amount = request.GET['amount']
                     if request.GET['is_cash'] == 'true':
@@ -216,10 +217,15 @@ class OrderViewSet(BaseReadOnlyViewSet):
 
                     result['product_name'] = product.name
                     result['cashier_name'] = f'{up.first_name} {up.last_name}'
+                    result['order_created_date'] = order.created
+                    result['invoice_date_created'] = datetime.datetime.now()
                     result['product_price'] = product.price
                     result['product_discount'] = product.discount
                     result['to_pay_amount'] = pay.amount
                     result['pay_change'] = pay.change
+
+                    order.status = 2
+                    order.save()
 
                     return Response(api_response(data=result))
 
@@ -233,7 +239,6 @@ class OrderViewSet(BaseReadOnlyViewSet):
                     return Response(api_response(data=True))
 
         order.status = 3
-        order.shop_assistant_id = up.id
         order.save()
         # 224 - The order was not verified. Status - canceled.
         return Response(

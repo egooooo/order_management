@@ -16,5 +16,3 @@ class PaymentFilter(filters.FilterSet):
     )
     # Dates filter (created_before, created_after)
     created = django_filters.DateFromToRangeFilter()
-    # amount_from, amount_to
-    amount = django_filters.RangeFilter()

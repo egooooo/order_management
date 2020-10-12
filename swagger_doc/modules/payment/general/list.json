@@ -24,24 +24,6 @@
         }
       },
       {
-        "name": "amount_from",
-        "in": "query",
-        "required": false,
-        "description": "Amount from",
-        "schema": {
-          "type": "integer"
-        }
-      },
-      {
-        "name": "amount_to",
-        "in": "query",
-        "required": false,
-        "description": "Amount to",
-        "schema": {
-          "type": "integer"
-        }
-      },
-      {
         "name": "status",
         "in": "query",
         "required": false,
