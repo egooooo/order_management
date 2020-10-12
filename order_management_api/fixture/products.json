@@ -1,0 +1,46 @@
+[
+    {
+        "model": "product.Product",
+        "pk": 1,
+        "fields": {
+            "created": "2020-08-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "name": "TV",
+            "price": 3000000,
+            "discount": 0
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 2,
+        "fields": {
+            "created": "2020-09-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "name": "Mobile phone",
+            "price": 2500000,
+            "discount": 0
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 3,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-11 12:43:30.481000+00:00",
+            "name": "iMac",
+            "price": 12000000,
+            "discount": 0
+        }
+    },
+    {
+        "model": "product.Product",
+        "pk": 4,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "name": "MacBook PRO",
+            "price": 9200000,
+            "discount": 0
+        }
+    }
+]

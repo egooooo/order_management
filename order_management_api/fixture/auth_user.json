@@ -1,0 +1,46 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "admin@admin.com",
+            "email": "admin@admin.com",
+            "password": "pbkdf2_sha256$150000$Px4ozCvIpIXi$mxMs53AhfotKbRFLtLH0EgqmcYlbyvWs7P3ly0OVwKs=",
+            "is_superuser": 1,
+            "is_staff": 1
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "username": "cashier@cashier.com",
+            "email": "cashier@cashier.com",
+            "password": "pbkdf2_sha256$150000$Px4ozCvIpIXi$mxMs53AhfotKbRFLtLH0EgqmcYlbyvWs7P3ly0OVwKs=",
+            "is_superuser": 0,
+            "is_staff": 1
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "username": "shop_assistant@sa.com",
+            "email": "shop_assistant@sa.com",
+            "password": "pbkdf2_sha256$150000$Px4ozCvIpIXi$mxMs53AhfotKbRFLtLH0EgqmcYlbyvWs7P3ly0OVwKs=",
+            "is_superuser": 0,
+            "is_staff": 1
+        }
+    },
+        {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "username": "accountant@accountant.com",
+            "email": "accountant@accountant.com",
+            "password": "pbkdf2_sha256$150000$Px4ozCvIpIXi$mxMs53AhfotKbRFLtLH0EgqmcYlbyvWs7P3ly0OVwKs=",
+            "is_superuser": 0,
+            "is_staff": 1
+        }
+    }
+]

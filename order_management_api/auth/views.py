@@ -17,6 +17,17 @@ class RegistrationView(BaseView):
     def post(self, request):
         data = request.data
 
+        active_user = self.request.user
+        up = UserProfile.objects.get(user_id=active_user.id)
+
+        # checking if the user is an administrator
+        if up.role.is_admin is not True:
+            # 151 - Only admin can create users
+            return Response(
+                api_response(status_code=151),
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         try:
             user_role = UserRole.objects.get(id=data.get('role_id'))
         except:
@@ -47,15 +58,25 @@ class RegistrationView(BaseView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-        user = UserProfile()
-        user.first_name = data.get('first_name')
-        user.last_name = data.get('last_name')
-        user.email = data.get('email')
-        user.role_id = user_role.id
-        user.user_id = auth_user.id
-        user.save()
+        try:
+            # create user profile
+            user = UserProfile()
+            user.first_name = data.get('first_name')
+            user.last_name = data.get('last_name')
+            user.email = data.get('email')
+            user.role_id = user_role.id
+            user.user_id = auth_user.id
+            user.save()
 
-        return Response(api_response(data=user.id))
+            return Response(api_response(data=user.id))
+
+        except:
+            User.objects.get(id=auth_user.id).delete()
+            # 100 - Wrong input data
+            return Response(
+                api_response(status_code=100),
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 class LoginView(BaseExternalView):

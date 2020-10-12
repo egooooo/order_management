@@ -12,6 +12,8 @@ from product.serializers import ProductSerializer, ProductRetrieveSerializer, \
 
 from users.models import UserProfile
 
+import datetime
+
 
 class ProductViewSet(BaseReadOnlyViewSet):
     queryset = Product.objects.all()
@@ -131,6 +133,21 @@ class OrderViewSet(BaseReadOnlyViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        # for discount
+        today = datetime.date.today()
+        day = today.day
+        month = (today.month - 1) % 12
+        year = today.year + ((today.month - 1) // 12)
+        one_month_ago = datetime.date(year, month, day)
+
+        product_created = product.created.strftime("%Y-%m-%d")
+        one_month_ago = one_month_ago.strftime("%Y-%m-%d")
+
+        if one_month_ago >= product_created:
+            product.discount = (product.price * 20) / 100
+            product.save()
+
+        # create new order
         order = Order()
         order.status = 0
         order.cashier_id = up.id

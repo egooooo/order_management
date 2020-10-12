@@ -1,0 +1,54 @@
+[
+    {
+        "model": "users.UserProfile",
+        "pk": 1,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "first_name": "Admin",
+            "last_name": "Admin",
+            "email": "admin@admin.com",
+            "role": 1,
+            "user": 1
+        }
+    },
+    {
+        "model": "users.UserProfile",
+        "pk": 2,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "first_name": "Cashier",
+            "last_name": "Cashier",
+            "email": "cashier@cashier.com",
+            "role": 1,
+            "user": 2
+        }
+    },
+    {
+        "model": "users.UserProfile",
+        "pk": 3,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "first_name": "Shop",
+            "last_name": "Assistant",
+            "email": "shop_assistant@sa.com",
+            "role": 1,
+            "user": 3
+        }
+    },
+    {
+        "model": "users.UserProfile",
+        "pk": 4,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "first_name": "Accountant",
+            "last_name": "Accountant",
+            "email": "accountant@accountant.com",
+            "role": 1,
+            "user": 4
+        }
+    }
+]

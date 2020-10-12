@@ -1,0 +1,46 @@
+[
+    {
+        "model": "users.UserProfile",
+        "pk": 1,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "name": "Admin",
+            "slug": "admin",
+            "is_admin": 1
+        }
+    },
+    {
+        "model": "users.UserProfile",
+        "pk": 2,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "name": "Cashier",
+            "slug": "cashier",
+            "is_admin": 0
+        }
+    },
+    {
+        "model": "users.UserProfile",
+        "pk": 3,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "name": "Shop assistant",
+            "slug": "shop_assistant",
+            "is_admin": 0
+        }
+    },
+    {
+        "model": "users.UserProfile",
+        "pk": 4,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "name": "Accountant",
+            "slug": "accountant",
+            "is_admin": 0
+        }
+    }
+]
