@@ -82,7 +82,6 @@ class RegistrationView(BaseView):
 class LoginView(BaseExternalView):
     def post(self, request):
         data = request.data
-        result = dict()
 
         try:
             up = UserProfile.objects.get(email=data.get('login'))
@@ -108,6 +107,7 @@ class LoginView(BaseExternalView):
         payload = jwt_payload_handler(up.user)
         token = jwt.encode(payload, SECRET_KEY)
 
+        result = dict()
         result['id'] = up.id
         result['name'] = f"{up.first_name} {up.last_name}"
         result['email'] = up.email

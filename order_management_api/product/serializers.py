@@ -63,9 +63,8 @@ class OrderSerializer(serializers.ModelSerializer):
         return Product.objects.get(id=obj.product_id).discount
 
     def get_final_sum(self, obj):
-        price = Product.objects.get(id=obj.product_id).price
-        discount = Product.objects.get(id=obj.product_id).discount
-        return price - discount
+        product = Product.objects.get(id=obj.product_id)
+        return product.price - product.discount
 
 
 class OrderRetrieveSerializer(serializers.ModelSerializer):
@@ -85,6 +84,5 @@ class OrderRetrieveSerializer(serializers.ModelSerializer):
         return Product.objects.get(id=obj.product_id).discount
 
     def get_final_sum(self, obj):
-        price = Product.objects.get(id=obj.product_id).price
-        discount = Product.objects.get(id=obj.product_id).discount
-        return price - discount
+        product = Product.objects.get(id=obj.product_id)
+        return product.price - product.discount

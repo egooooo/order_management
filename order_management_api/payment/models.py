@@ -10,7 +10,6 @@ class Payment(AbstractBigIntPkModel):
     class Meta(AbstractBigIntPkModel.Meta):
         db_table = 'payments'
 
-    NEW = 0
     SUCCESSFUL = 1
     UNSUCCESSFUL = 2
 

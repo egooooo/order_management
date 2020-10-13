@@ -70,7 +70,9 @@ class PaymentSerializer(serializers.ModelSerializer):
         return None
 
     def get_status(self, obj):
-        return Order.STATUS_CHOICES[obj.status][1]
+        if obj.status:
+            return Order.STATUS_CHOICES[obj.status][1]
+        return None
 
     def get_status_id(self, obj):
         return obj.status

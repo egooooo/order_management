@@ -141,6 +141,7 @@ class OrderViewSet(BaseReadOnlyViewSet):
         year = today.year + ((today.month - 1) // 12)
         one_month_ago = datetime.date(year, month, day)
 
+        # TODO need method
         product_created = product.created.strftime("%Y-%m-%d")
         one_month_ago = one_month_ago.strftime("%Y-%m-%d")
 
@@ -184,7 +185,6 @@ class OrderViewSet(BaseReadOnlyViewSet):
         up = UserProfile.objects.get(user_id=active_user.id)
 
         if up.is_cashier():
-            result = dict()
             change = 0
             product = Product.objects.get(id=order.product_id)
             product_price = product.price - product.discount
@@ -216,6 +216,7 @@ class OrderViewSet(BaseReadOnlyViewSet):
             pay.status = 1
             pay.save()
 
+            result = dict()
             result['product_name'] = product.name
             result['cashier_name'] = f'{up.first_name} {up.last_name}'
             result['order_created_date'] = order.created

@@ -31,9 +31,7 @@ class UserProfile(AbstractCreateUpdateModel):
     )
 
     def is_shop_assistant(self):
-        if self.role.slug == UserRole.SHOP_ASSISTANT_SLUG:
-            return True
-        return False
+        return self.role.slug == UserRole.SHOP_ASSISTANT_SLUG
 
     def is_cashier(self):
         if self.role.slug == UserRole.CASHIER_SLUG:

@@ -1,6 +1,7 @@
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
+# For local use only
 SECRET_KEY = 'fvpaaq2t)(ssroa!4*mdu+3o3%x5w3ymo_0jb=b%+vpctky4h@'
 
 ENV = 'LOCAL'
