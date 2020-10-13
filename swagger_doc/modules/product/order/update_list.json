@@ -55,15 +55,6 @@
         }
       },
       {
-        "name": "to_pay",
-        "in": "query",
-        "required": false,
-        "description": "To pay for cashier",
-        "schema": {
-          "type": "boolean"
-        }
-      },
-      {
         "name": "amount",
         "in": "query",
         "required": false,

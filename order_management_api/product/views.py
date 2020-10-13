@@ -184,50 +184,55 @@ class OrderViewSet(BaseReadOnlyViewSet):
         up = UserProfile.objects.get(user_id=active_user.id)
 
         if up.is_cashier():
-            if 'to_pay' in request.GET:
-                if request.GET['to_pay'] == 'true':
-                    result = dict()
-                    change = None
-                    product = Product.objects.get(id=order.product_id)
-                    product_price = product.price - product.discount
+            result = dict()
+            change = 0
+            product = Product.objects.get(id=order.product_id)
+            product_price = product.price - product.discount
 
-                    if int(request.GET['amount']) < product_price:
-                        # 225 - Amount to be paid is less than the
-                        # sum of the product
-                        return Response(
-                            api_response(status_code=225),
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
+            if 'amount' in request.GET:
+                if int(request.GET['amount']) < product_price:
+                    # 225 - Amount to be paid is less than the
+                    # sum of the product
+                    return Response(
+                        api_response(status_code=225),
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
 
-                    if int(request.GET['amount']) >= product_price:
-                        change = int(request.GET['amount']) - product_price
+            if 'amount' in request.GET:
+                if int(request.GET['amount']) >= product_price:
+                    change = int(request.GET['amount']) - product_price
 
-                    pay = Payment()
-                    # TODO invoice_date_created save to db
-                    pay.order_id = order.id
-                    pay.amount = request.GET['amount']
-                    if request.GET['is_cash'] == 'true':
-                        pay.cash = True
-                        pay.change = change
-                    if request.GET['is_cash'] == 'false':
-                        pay.card = True
-                        pay.change = change
-                    pay.status = 1
-                    pay.save()
+            pay = Payment()
+            # TODO invoice_date_created save to db
+            pay.order_id = order.id
+            if request.GET['is_cash'] == 'true':
+                pay.cash = True
+                pay.amount = request.GET['amount']
+                pay.change = change
+            if request.GET['is_cash'] == 'false':
+                pay.card = True
+                pay.amount = product_price
+                pay.change = change
+            pay.status = 1
+            pay.save()
 
-                    result['product_name'] = product.name
-                    result['cashier_name'] = f'{up.first_name} {up.last_name}'
-                    result['order_created_date'] = order.created
-                    result['invoice_date_created'] = datetime.datetime.now()
-                    result['product_price'] = product.price
-                    result['product_discount'] = product.discount
-                    result['to_pay_amount'] = pay.amount
-                    result['pay_change'] = pay.change
+            result['product_name'] = product.name
+            result['cashier_name'] = f'{up.first_name} {up.last_name}'
+            result['order_created_date'] = order.created
+            result['invoice_date_created'] = pay.invoice_date_created
+            result['product_price'] = product.price
+            result['product_discount'] = product.discount
+            result['to_pay_amount'] = pay.amount
+            if pay.cash is True:
+                result['pay_cash'] = True
+            if pay.card is True:
+                result['pay_card'] = True
+            result['pay_change'] = pay.change
 
-                    order.status = 2
-                    order.save()
+            order.status = 2
+            order.save()
 
-                    return Response(api_response(data=result))
+            return Response(api_response(data=result))
 
 
         if up.is_shop_assistant():
