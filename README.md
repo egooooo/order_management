@@ -106,3 +106,6 @@ Next step - run **SWAGGER**
 
 ## DELETE CONTAINERS
 And at the end, you can use the command to clean the project container. 
+```bash
+docker-compose down --rmi all
+```
