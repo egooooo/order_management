@@ -3,7 +3,7 @@ It is a simple order management system in a hardware store.
 
 * Project was tested on manOS Catalina Version 10.15.7 and ubuntu 20.04 
 
-## Installation for mac os
+## Installation
 Clone the project to a convenient directory
 ```bash
 git clone https://github.com/egooooo/order_management.git
