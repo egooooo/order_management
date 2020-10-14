@@ -28,9 +28,10 @@ Launch of the project
 ```bash
 docker-compose up 
 ```
+Next step - run **SWAGGER**
 
 ## SWAGGER
-After starting the project, we can go - [SWAGGER URL](http://localhost:8323/) or http://localhost:8323/
+**After starting the project, we can go** - [SWAGGER URL](http://localhost:8323/) or http://localhost:8323/
 
 
 ## Users:
