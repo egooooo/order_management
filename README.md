@@ -116,6 +116,9 @@ Next step - run **SWAGGER**
 7. **Создание юзеров. Admin**
 Может просматривать роли и создавать юзеров(Кассир, продавец-консультант, бухгалтер).
 
+8. **Создание товаров**
+Каждая роль может создавать товар.
+
 ## DELETE CONTAINERS
 And at the end, you can use the command to clean the project container. 
 ```bash
