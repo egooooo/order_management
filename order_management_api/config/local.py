@@ -18,3 +18,9 @@ DATABASES = {
         'PORT': '5454'
     }
 }
+
+# FIXTURES
+
+FIXTURE_DIRS = (
+   'order_management_api/fixture/',
+)

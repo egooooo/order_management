@@ -31,19 +31,18 @@ class ProductViewSet(BaseReadOnlyViewSet):
     def post(self, request):
         data = request.data
 
-        try:
-            product = Product()
-            product.name = data.get('name')
-            product.price = data.get('price')
-            product.save()
-            return Response(api_response(data=product.id))
-
-        except Exception as e:
-            # 999 - Unhandled exception
+        if data.get('name') == "":
+            # 100 - Wrong input data
             return Response(
-                api_response(status_code=999, message=str(e)),
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                api_response(status_code=100),
+                status=status.HTTP_400_BAD_REQUEST
             )
+
+        product = Product()
+        product.name = data.get('name')
+        product.price = data.get('price')
+        product.save()
+        return Response(api_response(data=product.id))
 
     def retrieve(self, request, product_id=None, *args, **kwargs):
         try:

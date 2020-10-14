@@ -26,12 +26,12 @@ def api_response(data=None, status_code=0, lang=None, message=None):
     if status_code and get_error(status_code):
         response['error']['message'] = get_error(status_code)['message'][lang]
 
-        logger.error(f"{response}")
-        logger.error(f"{traceback.format_exc()}")
+        # logger.error(f"{response}")
+        # logger.error(f"{traceback.format_exc()}")
 
     if message:
-        logger.error(f"{response['error']['message']} ({message})")
-        logger.error(f"{traceback.format_exc()}")
+        # logger.error(f"{response['error']['message']} ({message})")
+        # logger.error(f"{traceback.format_exc()}")
 
         response['error']['message'] += " (" + message + ")"
 
