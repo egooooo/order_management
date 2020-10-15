@@ -15,7 +15,6 @@ class TestProductViewSet(APITestCase):
         self.user = User.objects.get(id=1)
 
     def test_get_all_products(self):
-        # TODO
         expected_products_data = [
             {
                 "id": 1,
@@ -49,9 +48,7 @@ class TestProductViewSet(APITestCase):
         request = self.factory.get(url)
         force_authenticate(request, user=self.user)
         response = view(request)
-
         products_data = response.data.get('result').get('results')
-        #products_data = list()
 
         for product in expected_products_data:
             self.assertIn(product, products_data)
@@ -177,7 +174,67 @@ class TestProductViewSet(APITestCase):
 
 
 class TestOrderViewSet(APITestCase):
-    fixtures = ['roles', 'auth_user.json', 'user.json', 'products.json']
-    # TODO
+    fixtures = ['roles', 'auth_user.json', 'user.json', 'products.json',
+                'order.json']
+
     def setUp(self):
-        pass
+        self.factory = APIRequestFactory()
+        self.cashier = User.objects.get(id=2)
+        self.shop_assistant = User.objects.get(id=3)
+
+    def test_get_all_orders_for_cashier(self):
+        expected_orders_data = [
+            {
+                'id': 2,
+                "created": "2020-09-10T15:43:30.481000+03:00",
+                "status_id": 1,
+                "status": "Completed",
+                "cashier_id": 2,
+                "cashier": "Cashier Cashier",
+                "product_id": 1,
+                "product_name": "TV",
+                "shop_assistant_id": 3,
+                "shop_assistant": "Shop Assistant",
+                "price": 3000000,
+                "discount": 0,
+                "final_sum": 3000000
+            }
+        ]
+
+        view = OrderViewSet.as_view({"get": "list"})
+        url = 'product/order/'
+        request = self.factory.get(url)
+        force_authenticate(request, user=self.cashier)
+        response = view(request)
+        orders_data = response.data.get('result').get('results')
+
+        for order in expected_orders_data:
+            self.assertIn(order, orders_data)
+
+    def test_get_all_orders_for_shop_assistant(self):
+        expected_orders_data = [
+            {
+                'id': 1,
+                "created": "2020-08-10T15:43:30.481000+03:00",
+                "status_id": 0,
+                "status": "New",
+                "cashier_id": 2,
+                "cashier": "Cashier Cashier",
+                "product_id": 1,
+                "product_name": "TV",
+                "shop_assistant_id": None,
+                "shop_assistant": None,
+                "price": 3000000,
+                "discount": 0,
+                "final_sum": 3000000
+            }
+        ]
+        view = OrderViewSet.as_view({"get": "list"})
+        url = 'product/order/'
+        request = self.factory.get(url)
+        force_authenticate(request, user=self.shop_assistant)
+        response = view(request)
+        orders_data = response.data.get('result').get('results')
+
+        for order in expected_orders_data:
+            self.assertIn(order, orders_data)

@@ -1,0 +1,38 @@
+[
+    {
+        "model": "product.Order",
+        "pk": 1,
+        "fields": {
+            "created": "2020-08-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "cashier_id": 2,
+            "shop_assistant_id": null,
+            "product_id": 1,
+            "status": 0
+        }
+    },
+    {
+        "model": "product.Order",
+        "pk": 2,
+        "fields": {
+            "created": "2020-09-10 12:43:30.481000+00:00",
+            "updated": "2020-10-10 12:43:30.481000+00:00",
+            "cashier_id": 2,
+            "shop_assistant_id": 3,
+            "product_id": 1,
+            "status": 1
+        }
+    },
+    {
+        "model": "product.Order",
+        "pk": 3,
+        "fields": {
+            "created": "2020-10-10 12:43:30.481000+00:00",
+            "updated": "2020-10-11 12:43:30.481000+00:00",
+            "cashier_id": 2,
+            "shop_assistant_id": 3,
+            "product_id": 1,
+            "status": 2
+        }
+    }
+]
