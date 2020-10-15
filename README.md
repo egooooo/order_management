@@ -33,6 +33,11 @@ Next step - run **SWAGGER**
 ## SWAGGER
 **After starting the project, we can go** - [SWAGGER URL](http://localhost:8323/) or http://localhost:8323/
 
+## Tests
+Product and Order tests
+```bash
+docker-compose run api python order_management_api/manage.py test order_management_api/product/
+```
 
 ## Users:
 1. **Admin**. \
