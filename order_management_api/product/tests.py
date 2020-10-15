@@ -174,3 +174,10 @@ class TestProductViewSet(APITestCase):
         response = view(request, product_id=5)
         response_data = response.data
         self.assertDictEqual(expected_error, response_data.get('error'))
+
+
+class TestOrderViewSet(APITestCase):
+    fixtures = ['roles', 'auth_user.json', 'user.json', 'products.json']
+    # TODO
+    def setUp(self):
+        pass
