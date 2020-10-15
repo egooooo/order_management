@@ -61,7 +61,7 @@ docker-compose run api python order_management_api/manage.py test order_manageme
 То есть, консультант смотрит на заказ, проверяет чтобы все было правильно и в случае успеха, 
 меняет статус что позволяет кассиру принять оплату клиента и выдать товар.
 
-3. **Accountant**. \
+4. **Accountant**. \
 	login: ``accountant@accountant.com`` \
 	password: ``123qwe321``
 
