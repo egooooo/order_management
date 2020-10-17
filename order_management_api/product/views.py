@@ -202,7 +202,6 @@ class OrderViewSet(BaseReadOnlyViewSet):
                     change = int(request.GET['amount']) - product_price
 
             pay = Payment()
-            # TODO invoice_date_created save to db
             pay.order_id = order.id
             if request.GET['is_cash'] == 'true':
                 pay.cash = True
@@ -228,7 +227,6 @@ class OrderViewSet(BaseReadOnlyViewSet):
             if pay.card is True:
                 result['pay_card'] = True
             result['pay_change'] = pay.change
-
             order.status = 2
             order.save()
 
