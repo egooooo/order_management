@@ -241,6 +241,7 @@ class OrderViewSet(BaseReadOnlyViewSet):
                     order.save()
                     return Response(api_response(data=True))
 
+        # TODO
         order.status = 3
         order.save()
         # 224 - The order was not verified. Status - canceled.
